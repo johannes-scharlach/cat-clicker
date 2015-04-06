@@ -36,11 +36,12 @@ var Cat = function() {
     this.name = ko.observable('Jana');
 };
 
+
 var ViewModel = function() {
   this.currentCat = ko.observable(new Cat());
 
   this.incrementCounter = function() {
-    this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+    this.clickCount(this.clickCount() + 1);
   };
 };
 
