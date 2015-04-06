@@ -1,4 +1,4 @@
-var Cat = function() {
+var Cat = function(data) {
     var levels = [
       {
         max: 9,
@@ -18,27 +18,30 @@ var Cat = function() {
       }
     ];
 
-    this.clickCount = ko.observable(0);
-    this.imgAttribution = ko.observable('');
-    this.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
-    this.levelId = 0;
+    this.clickCount = ko.observable(data.clickCount);
+    this.imgAttribution = ko.observable(data.imgAttribution);
+    this.imgSrc = ko.observable(data.imgSrc);
+    this.levelId = ko.observable(data.levelId);
     this.level = ko.computed(function() {
-      while (this.clickCount() > levels[this.levelId].max) {
-        this.levelId++;
+      while (this.clickCount() > levels[this.levelId()].max) {
+        this.levelId(this.levelId() + 1);
       }
-      return levels[this.levelId].level;
+      return levels[this.levelId()].level;
     }, this);
-    this.nickNames = ko.observableArray([
-      'Jani',
-      'Miss J.',
-      'Little JJ'
-    ]);
-    this.name = ko.observable('Jana');
+    this.nickNames = ko.observableArray(data.nickNames);
+    this.name = ko.observable(data.name);
 };
 
 
 var ViewModel = function() {
-  this.currentCat = ko.observable(new Cat());
+  this.currentCat = ko.observable(new Cat({
+    clickCount: 0,
+    imgAttribution: '',
+    imgSrc: 'img/22252709_010df3379e_z.jpg',
+    levelId: 0,
+    nickNames: ['Jani', 'Miss J.', 'Little JJ'],
+    name: 'Jana'
+  }));
 
   this.incrementCounter = function() {
     this.clickCount(this.clickCount() + 1);
