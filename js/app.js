@@ -28,6 +28,11 @@ var ViewModel = function() {
     }
     return levels[this.levelId].level;
   }, this);
+  this.nickNames = ko.observableArray([
+    'Jani',
+    'Miss J.',
+    'Little JJ'
+  ]);
   this.name = ko.observable('Jana');
 
   this.incrementCounter = function() {
